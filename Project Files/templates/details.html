@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload Rice Image</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 30px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: #2c3e50;
+            margin-bottom: 2rem;
+        }
+
+        form {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .custom-file-label {
+            display: inline-block;
+            background: linear-gradient(90deg, #2c3e50, #4a6491);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        .custom-file-label:hover {
+            background: linear-gradient(90deg, #4a6491, #2c3e50);
+            transform: translateY(-2px);
+        }
+
+        #fileName {
+            display: block;
+            margin-top: 12px;
+            font-size: 0.95rem;
+            color: #2c3e50;
+            font-weight: 500;
+        }
+
+        #submitBtn {
+            margin-top: 20px;
+            background: linear-gradient(90deg, #2c3e50, #4a6491);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        #submitBtn:hover {
+            background: linear-gradient(90deg, #4a6491, #2c3e50);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 600px) {
+            form {
+                padding: 20px;
+            }
+
+            .custom-file-label, #submitBtn {
+                padding: 10px 24px;
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Upload a Rice Grain Image</h1>
+
+    <form method="POST" action="/result" enctype="multipart/form-data" id="uploadForm">
+        <label for="fileInput" class="custom-file-label">
+            <i class="fas fa-upload"></i> Choose Image
+        </label>
+        <input type="file" name="image" id="fileInput" accept="image/*" required>
+        <span id="fileName">No file selected</span>
+
+        <br>
+
+        <button type="submit" id="submitBtn">
+            <i class="fas fa-microscope"></i> Predict Rice Type
+        </button>
+    </form>
+
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        const fileName = document.getElementById('fileName');
+
+        fileInput.addEventListener('change', function () {
+            if (fileInput.files.length > 0) {
+                fileName.textContent = fileInput.files[0].name;
+            } else {
+                fileName.textContent = "No file selected";
+            }
+        });
+
+        document.getElementById('uploadForm').addEventListener('submit', function () {
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Analyzing...';
+            submitBtn.disabled = true;
+        });
+    </script>
+
+</body>
+</html>

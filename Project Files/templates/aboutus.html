@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Rice Type Classifier</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Navbar Styles (same as index) */
+        .navbar {
+            background: linear-gradient(90deg, #2c3e50, #4a6491);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .logo-icon {
+            font-size: 1.8rem;
+            color: #ffd43b;
+        }
+        
+        .logo-text {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #ffd43b;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        /* About Us Container */
+        .about-container {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 2rem;
+            flex: 1;
+        }
+        
+        .about-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .about-header h1 {
+            font-size: 2.8rem;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .about-header p {
+            font-size: 1.2rem;
+            color: #4a5568;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+        
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        .about-text h2 {
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+        
+        .about-text p {
+            color: #4a5568;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+        
+        .team {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .team h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+        }
+        
+        .team-members {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .member {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .member:hover {
+            transform: translateY(-10px);
+        }
+        
+        .member-img {
+            height: 200px;
+            background: linear-gradient(45deg, #3498db, #2c3e50);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .member-img i {
+            font-size: 5rem;
+            color: white;
+        }
+        
+        .member-info {
+            padding: 1.5rem;
+        }
+        
+        .member-info h3 {
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+        
+        .member-info p {
+            color: #3498db;
+            font-style: italic;
+        }
+        
+        /* Footer Styles (same as index) */
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: auto;
+        }
+        
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 1.5rem 0;
+        }
+        
+        .footer-links a {
+            color: #3498db;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: #ffd43b;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 1rem;
+            }
+            
+            .nav-links {
+                margin-top: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .about-header h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo">
+            <div class="logo-icon">
+                <i class="fas fa-seedling"></i>
+            </div>
+            <div class="logo-text">Rice Classifier</div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="/"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="aboutus.html" class="active"><i class="fas fa-info-circle"></i> About Us</a></li>
+            <li><a href="contactus.html"><i class="fas fa-envelope"></i> Contact Us</a></li>
+        </ul>
+    </nav>
+    <!-- About Us Content -->
+    <div class="about-container">
+        <div class="about-header">
+            <h1>About Us</h1>
+            <p>Learn about our mission, vision, and the team behind the Rice Type Classifier project.</p>
+        </div>
+        
+        <div class="about-content">
+            <div class="about-text">
+                <h2>Our Mission</h2>
+                <p>Our mission is to revolutionize the agricultural industry by providing a cutting-edge solution for rice classification. We leverage artificial intelligence and machine learning to help farmers, distributors, and researchers accurately identify rice varieties with unprecedented speed and precision.</p>
+                
+                <h2>Our Vision</h2>
+                <p>We envision a world where technology empowers every stakeholder in the agricultural supply chain. By making rice classification accessible and efficient, we aim to contribute to global food security and sustainable farming practices.</p>
+                
+                <h2>Tech Stack Used</h2>
+                <p>HTML5 for structuring web pages <br>
+                   CSS3 for styling <br>
+                   Python 3.10 main programming language.<br>              
+                   Flask for micro web framework for handling HTTP requests, routing, and rendering templates.<br>
+                   Transfer Learning for MobileNetV2 model from TensorFlow Hub used for extracting features.<br> 
+                   OpenCV (cv2) for reading, resizing, and preprocessing images.<br>
+                   NumPy for numerical array manipulation. <br>    
+                   TensorFlow for deep learning model handling (loading .h5 file, making predictions).<br>
+                </p>
+            </div>
+            
+            <div class="team">
+                <h2>Meet Our Team</h2>
+                <div class="team-members">
+                    <div class="member">
+                        <div class="member-img">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="member-info">
+                            <h3>Chigurupati Satwika</h3>
+                            <p>Team Leader</p>
+                        </div>
+                    </div>
+                    
+                    <div class="member">
+                        <div class="member-img">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="member-info">
+                            <h3>Chalamalasetti Gopi Sai </h3>
+                            <p>Team Member</p>
+                        </div>
+                    </div>
+                    
+                    <div class="member">
+                        <div class="member-img">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="member-info">
+                            <h3>Burepalli Sreya</h3>
+                            <p>Team Member</p>
+                        </div>
+                    </div>
+                    
+                    <div class="member">
+                        <div class="member-img">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="member-info">
+                            <h3>Ch Rohith Venkat</h3>
+                            <p>Team Member</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
